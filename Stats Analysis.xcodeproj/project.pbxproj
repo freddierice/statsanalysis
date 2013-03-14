@@ -28,6 +28,9 @@
 		5B4FB59516F20D40007ED085 /* Stats Analysis */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Stats Analysis"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B4FB59916F20D40007ED085 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		5B4FB59B16F20D40007ED085 /* Stats_Analysis.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Stats_Analysis.1; sourceTree = "<group>"; };
+		5BACC41716F25D3900F26B94 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		5BACC41916F2625300F26B94 /* printing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = printing.h; sourceTree = "<group>"; };
+		5BACC41A16F262E400F26B94 /* data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = data.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +65,9 @@
 			children = (
 				5B4FB59916F20D40007ED085 /* main.c */,
 				5B4FB59B16F20D40007ED085 /* Stats_Analysis.1 */,
+				5BACC41716F25D3900F26B94 /* main.h */,
+				5BACC41916F2625300F26B94 /* printing.h */,
+				5BACC41A16F262E400F26B94 /* data.h */,
 			);
 			path = "Stats Analysis";
 			sourceTree = "<group>";
@@ -201,6 +207,7 @@
 				5B4FB5A116F20D40007ED085 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
