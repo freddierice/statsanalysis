@@ -2,8 +2,7 @@
 //  printing.h
 //  Stats Analysis
 //
-//  Created by User on 3/14/13.
-//  Copyright (c) 2013 __MyCompanyName__. All rights reserved.
+//  Created by Freddie Rice on 3/14/13.
 //
 
 #ifndef __printing_h__
