@@ -1,0 +1,73 @@
+﻿Build started 3/20/2013 1:37:34 AM.
+     1>Project "C:\Users\Freddie\Desktop\statsanalysis\project files\Visual Studio\StatsAnalysis.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\source\data.c ..\..\source\main.c ..\..\source\random.c ..\..\source\write.c
+         write.c
+     1>c:\users\freddie\desktop\statsanalysis\source\write.c(21): error C2143: syntax error : missing ';' before 'type'
+     1>c:\users\freddie\desktop\statsanalysis\source\write.c(25): error C2065: 'i' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\write.c(25): warning C4018: '<=' : signed/unsigned mismatch
+     1>c:\users\freddie\desktop\statsanalysis\source\write.c(27): error C2065: 'i' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\write.c(28): error C2065: 'i' : undeclared identifier
+         random.c
+     1>c:\users\freddie\desktop\statsanalysis\source\random.c(21): warning C4013: 'initstate' undefined; assuming extern returning int
+     1>c:\users\freddie\desktop\statsanalysis\source\random.c(33): warning C4013: 'random' undefined; assuming extern returning int
+     1>c:\users\freddie\desktop\statsanalysis\source\random.c(39): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(218) : see declaration of 'fopen'
+     1>c:\users\freddie\desktop\statsanalysis\source\random.c(40): error C2143: syntax error : missing ';' before 'type'
+     1>c:\users\freddie\desktop\statsanalysis\source\random.c(40): error C2143: syntax error : missing ')' before 'type'
+     1>c:\users\freddie\desktop\statsanalysis\source\random.c(40): error C2065: 'i' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\random.c(40): warning C4552: '<' : operator has no effect; expected operator with side-effect
+     1>c:\users\freddie\desktop\statsanalysis\source\random.c(40): error C2059: syntax error : ')'
+     1>c:\users\freddie\desktop\statsanalysis\source\random.c(41): error C2065: 'i' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\random.c(41): error C2146: syntax error : missing ';' before identifier 'buf'
+         main.c
+     1>c:\users\freddie\desktop\statsanalysis\source\main.c(33): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(110) : see declaration of 'strcpy'
+     1>c:\users\freddie\desktop\statsanalysis\source\main.c(36): error C2275: 'sample_info' : illegal use of this type as an expression
+                 c:\users\freddie\desktop\statsanalysis\source\main.h(24) : see declaration of 'sample_info'
+     1>c:\users\freddie\desktop\statsanalysis\source\main.c(36): error C2065: 'samples' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\main.c(38): error C2065: 'samples' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\main.c(38): warning C4047: 'function' : 'sample_info *' differs in levels of indirection from 'int'
+     1>c:\users\freddie\desktop\statsanalysis\source\main.c(38): warning C4024: 'createRandomSamples' : different types for formal and actual parameter 1
+         data.c
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(13): error C2143: syntax error : missing ';' before 'type'
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(13): error C2143: syntax error : missing ')' before 'type'
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(13): error C2065: 'i' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(13): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(13): warning C4552: '<' : operator has no effect; expected operator with side-effect
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(13): error C2059: syntax error : ')'
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(14): error C2065: 'i' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(14): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(17): error C2143: syntax error : missing ';' before 'type'
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(17): error C2143: syntax error : missing ')' before 'type'
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(17): error C2065: 'i' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(17): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(17): warning C4552: '<' : operator has no effect; expected operator with side-effect
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(17): error C2059: syntax error : ')'
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(18): error C2065: 'i' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(18): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(19): error C2065: 'i' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(20): error C2065: 'i' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(24): error C2143: syntax error : missing ';' before 'type'
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(25): error C2143: syntax error : missing ';' before 'type'
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(25): error C2143: syntax error : missing ')' before 'type'
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(25): error C2065: 'i' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(25): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(25): warning C4552: '<' : operator has no effect; expected operator with side-effect
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(25): error C2059: syntax error : ')'
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(26): error C2065: 'i' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(26): error C2146: syntax error : missing ';' before identifier 'sumSquareDifs'
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(26): error C2065: 'sumSquareDifs' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(26): warning C4244: '+=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(28): error C2065: 'i' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(29): error C2065: 'i' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(30): error C2065: 'i' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(31): error C2065: 'i' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(31): error C2065: 'sumSquareDifs' : undeclared identifier
+     1>c:\users\freddie\desktop\statsanalysis\source\data.c(32): error C2065: 'i' : undeclared identifier
+         Generating Code...
+     1>Done Building Project "C:\Users\Freddie\Desktop\statsanalysis\project files\Visual Studio\StatsAnalysis.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.65
