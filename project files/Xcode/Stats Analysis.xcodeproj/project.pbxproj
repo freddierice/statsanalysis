@@ -192,7 +192,7 @@
 		5B4FB5A016F20D40007ED085 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "../../build/Xcode/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				CONFIGURATION_BUILD_DIR = "../../build/Mac OS X Binaries/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				INFOPLIST_FILE = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -201,7 +201,7 @@
 		5B4FB5A116F20D40007ED085 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "../../build/Xcode/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				CONFIGURATION_BUILD_DIR = "../../build/Mac OS X Binaries/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				INFOPLIST_FILE = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
