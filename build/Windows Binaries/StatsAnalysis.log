@@ -1,4 +1,4 @@
-﻿Build started 3/20/2013 8:53:48 PM.
+﻿Build started 3/20/2013 8:52:49 PM.
      1>Project "C:\Users\Freddie\Desktop\statsanalysis\project files\Visual Studio\StatsAnalysis.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\source\data.c
@@ -8,9 +8,9 @@
          Debug\main.obj
          Debug\random.obj
          Debug\write.obj
-         StatsAnalysis.vcxproj -> C:\Users\Freddie\Desktop\statsanalysis\project files\Visual Studio\..\..\build\Windows Binaries\StatsAnalysis.exe
-     1>Done Building Project "C:\Users\Freddie\Desktop\statsanalysis\project files\Visual Studio\StatsAnalysis.vcxproj" (Build target(s)).
+     1>LINK : fatal error LNK1209: program database 'C:\Users\Freddie\Desktop\statsanalysis\build\Windows Binaries\StatsAnalysis.pdb' differs from previous link; relink or rebuild
+     1>Done Building Project "C:\Users\Freddie\Desktop\statsanalysis\project files\Visual Studio\StatsAnalysis.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:00.56
+Time Elapsed 00:00:00.26
