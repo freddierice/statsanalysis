@@ -9,21 +9,26 @@
 
 void createRandomSamples( sample_info *samples, unsigned long repititions, double mu, double sd, unsigned long n )
 {
+	unsigned long i;
+	unsigned long j;
+
     initializeSampleInfo(samples, repititions);
-    for (unsigned long i = 0; i < repititions; ++i) 
+    for (i = 0; i < repititions; ++i) 
     {
         double *data = (double *)malloc(n*sizeof(double));
         double mean = 0;
-        for( unsigned long i; i < n; ++i )
+		double sumSquareDifs;
+
+        for( j = 0; j < n; ++j )
         {
-            data[i] = getRandomNormal(mu, sd);
-            mean += data[i];
+            data[j] = getRandomNormal(mu, sd);
+            mean += data[j];
         }
         mean /= (double)n;
         
-        double sumSquareDifs = 0;
-        for( unsigned long i; i < n; ++i )
-            sumSquareDifs += pow(mean-data[i],2);
+        sumSquareDifs = 0;
+        for( j = 0; j < n; ++j )
+            sumSquareDifs += pow(mean-data[j],2);
         
         samples[i].pop_mean = mu;
         samples[i].pop_sd   = sd;

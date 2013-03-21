@@ -11,14 +11,17 @@
 void getRandomBytes(char* buf, short bufLength);
 
 void initializeRandom(void)
-{
-    char *randomness = (char *)malloc(COMPLEXITY);
+{   
+#ifdef _WIN32
+    
+#elif defined(__linux__) || defined(__APPLE__)
+	char *randomness = (char *)malloc(COMPLEXITY);
     unsigned int seed = 0;
     
     getRandomBytes((char *)&seed, sizeof(seed));
     getRandomBytes(randomness, COMPLEXITY);
-    
     initstate(seed, randomness, COMPLEXITY);
+#endif
 }
 
 double getRandomNormal( double mu, double sd )
@@ -30,15 +33,25 @@ double getRandomNormal( double mu, double sd )
 
 double getRandom( void )
 {
-    return (((double)random())/((double)0x7FFFFFFF));
+#ifdef _WIN32
+    return 0.0;
+#elif defined(__linux__) || defined(__APPLE__)
+	return (((double)random())/((double)0x7FFFFFFF));
+#endif
 }
 
 void getRandomBytes(char* buf, short bufLength)
 {
-    FILE *file;
-    file = fopen(EPOCH_POOl,"a+");
-    for( short i = 0; i < bufLength; ++i )
+    
+#ifdef _WIN32
+
+#elif defined(__linux__) || defined(__APPLE__)
+	FILE *file;
+	short i;
+	file = fopen(EPOCH_POOl,"a+");
+	for( i = 0; i < bufLength; ++i )
         buf[i] = getc(file);
     fclose(file);
+#endif
 }
 

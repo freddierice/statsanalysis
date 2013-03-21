@@ -29,11 +29,16 @@ int main (int argc, const char * argv[])
     double mu = 0;
     double sd = 1;
     unsigned long n = 50;
+	sample_info *samples;
+
     char *filename = (char *)malloc(sizeof("outfile.csv"));
-    strcpy(filename, "outfile.csv");
+#ifdef _WIN32
+    strcpy_s(filename, sizeof("outfile.csv"),"outfile.csv");
+#elif defined(__linux__) || defined(__APPLE__)
+	strcpy(filename, "outfile.csv");
+#endif
     
     initializeRandom();
-    sample_info *samples;
     
     createRandomSamples(samples, repititions, mu, sd, n);
     

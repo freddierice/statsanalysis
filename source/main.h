@@ -25,8 +25,8 @@ typedef struct sample_info_struct {
 extern void initializeSampleInfo( sample_info *s,           //initialize the sample info
                                  unsigned long n);    
 
-/* write.c */void 
-write(sample_info *info, unsigned long samples, const char *file);
+/* write.c */
+void write(sample_info *info, unsigned long samples, const char *file);
 
 
 /* random.c */
@@ -46,6 +46,6 @@ extern void createRandomSamples( sample_info *samples,      //create random samp
 #define PRINT_USAGE(name)   printf("Usage: %s <sample size> <mean> <std> \n\n", name)
 #define PRINT_HELP()        printf("%s\n","<sample size>   size of the samples"); \
 printf("%s\n","<std>    standard deviation."); \
-printf("\n");
+printf("\n"); 
 
 #endif /* __MAIN_H__ */

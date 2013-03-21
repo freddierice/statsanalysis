@@ -10,6 +10,8 @@
 void write(sample_info *info, unsigned long samples, const char *file)
 {
     FILE *outfile;
+	unsigned long i;
+
 #ifdef _WIN32
     fopen_s(&outfile, file, "a+");
 #elif defined(__linux__) || defined(__APPLE__)
@@ -17,11 +19,7 @@ void write(sample_info *info, unsigned long samples, const char *file)
 #endif
 
     fprintf(outfile, "id,popMean,popSD,samMean,samSD,n\n");
-#ifdef _WIN32
-	long i;
-#elif defined(__linux__) || defined(__APPLE__)
-	unsigned long i;
-#endif
+
     for (i=1; i <= samples; ++i) 
     {
         sample_info *t = &info[i];
