@@ -14,6 +14,12 @@
 #include <string.h>
 #include <math.h>
 
+#ifdef _WIN32
+#include <Windows.h>
+#pragma comment(lib, "advapi32.lib")
+
+#endif
+
 /* data.c */
 typedef struct sample_info_struct {
     double          pop_mean;    //population mean
@@ -40,6 +46,10 @@ extern void createRandomSamples( sample_info *samples,      //create random samp
                                 unsigned long repititions,  //the gaussian curve
                                 double mu, double sd, 
                                 unsigned long n );   
+
+/* normal.c */
+extern void initializeNormal(void);
+extern double randNormal(void);
 
 /* printing to console */
 #define PRINT_ERR(x)        printf("%s\n", x);

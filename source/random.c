@@ -10,10 +10,19 @@
 /* Internal Functions */
 void getRandomBytes(char* buf, short bufLength);
 
+/* Internal Globals */
+#ifdef _WIN32
+HCRYPTPROV hProvider = 0;
+#endif
+
 void initializeRandom(void)
 {   
 #ifdef _WIN32
-    
+	if (!CryptAcquireContextW(&hProvider, 0, 0, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT | CRYPT_SILENT))
+	{
+		PRINT_ERR("Could not create the context for random number generation");
+		return;
+	}
 #elif defined(__linux__) || defined(__APPLE__)
 	char *randomness = (char *)malloc(COMPLEXITY);
     unsigned int seed = 0;
@@ -33,18 +42,23 @@ double getRandomNormal( double mu, double sd )
 
 double getRandom( void )
 {
+	double randomNumber = 0;
 #ifdef _WIN32
-    return 0.0;
+	getRandomBytes((char *)&randomNumber, (short)sizeof(double));
 #elif defined(__linux__) || defined(__APPLE__)
-	return (((double)random())/((double)0x7FFFFFFF));
+	randomNumber = random();
 #endif
+	return (((double)randomNumber)/((double)0x7FFFFFFF));
 }
 
 void getRandomBytes(char* buf, short bufLength)
 {
     
 #ifdef _WIN32
-
+	if (!CryptGenRandom(hProvider, (DWORD)bufLength, (BYTE *)buf))
+	{
+		PRINT_ERR("Error generating randomness");
+	}
 #elif defined(__linux__) || defined(__APPLE__)
 	FILE *file;
 	short i;
@@ -54,4 +68,3 @@ void getRandomBytes(char* buf, short bufLength)
     fclose(file);
 #endif
 }
-
