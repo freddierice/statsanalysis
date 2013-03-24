@@ -11,6 +11,7 @@
 		5BA3FDD116F99400004023F6 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3FDCC16F99400004023F6 /* main.c */; };
 		5BA3FDD216F99400004023F6 /* random.c in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3FDCE16F99400004023F6 /* random.c */; };
 		5BA3FDD316F99400004023F6 /* write.c in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3FDCF16F99400004023F6 /* write.c */; };
+		5BA9AEF316FE2AC7002F3C5E /* normal.c in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9AEF216FE2AC7002F3C5E /* normal.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,6 +34,7 @@
 		5BA3FDCD16F99400004023F6 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main.h; path = ../../source/main.h; sourceTree = "<group>"; };
 		5BA3FDCE16F99400004023F6 /* random.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = random.c; path = ../../source/random.c; sourceTree = "<group>"; };
 		5BA3FDCF16F99400004023F6 /* write.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = write.c; path = ../../source/write.c; sourceTree = "<group>"; };
+		5BA9AEF216FE2AC7002F3C5E /* normal.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = normal.c; path = ../../source/normal.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 		5B4FB59816F20D40007ED085 /* Stats Analysis */ = {
 			isa = PBXGroup;
 			children = (
+				5BA9AEF216FE2AC7002F3C5E /* normal.c */,
 				5BA3FDCB16F99400004023F6 /* data.c */,
 				5BA3FDCC16F99400004023F6 /* main.c */,
 				5BA3FDCD16F99400004023F6 /* main.h */,
@@ -137,6 +140,7 @@
 				5BA3FDD116F99400004023F6 /* main.c in Sources */,
 				5BA3FDD216F99400004023F6 /* random.c in Sources */,
 				5BA3FDD316F99400004023F6 /* write.c in Sources */,
+				5BA9AEF316FE2AC7002F3C5E /* normal.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

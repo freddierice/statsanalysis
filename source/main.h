@@ -40,16 +40,17 @@ void write(sample_info *info, unsigned long samples, const char *file);
                                                             //(256 is the max supported)
 #define EPOCH_POOl "/dev/urandom"                           //the epoch pool to take the randomness
 extern void initializeRandom( void );                       //seed the PRNG
-extern double getRandomNormal( double mu, double sd );      //get a normalized random number
 extern double getRandom( void );                            //get a random number [0,1]
 extern void createRandomSamples( sample_info *samples,      //create random samples based off
                                 unsigned long repititions,  //the gaussian curve
                                 double mu, double sd, 
                                 unsigned long n );   
+extern void getRandomBytes(char* buf, short bufLength);            //get random bytes
+
 
 /* normal.c */
 extern void initializeNormal(void);
-extern double randNormal(void);
+extern double getRandomNormal(double sd, double mean);
 
 /* printing to console */
 #define PRINT_ERR(x)        printf("%s\n", x);

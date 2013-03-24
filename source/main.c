@@ -25,6 +25,8 @@ int main (int argc, const char * argv[])
     }
      */
     
+    initializeNormal();
+    
     unsigned long repititions = 10;
     double mu = 0;
     double sd = 1;
@@ -39,8 +41,8 @@ int main (int argc, const char * argv[])
 #endif
     
     initializeRandom();
-    
     createRandomSamples(samples, repititions, mu, sd, n);
+    write(samples, n, filename);
     
     return 0;
 }

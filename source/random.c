@@ -7,9 +7,6 @@
 
 #include "main.h"
 
-/* Internal Functions */
-void getRandomBytes(char* buf, short bufLength);
-
 /* Internal Globals */
 #ifdef _WIN32
 HCRYPTPROV hProvider = 0;
@@ -31,12 +28,6 @@ void initializeRandom(void)
     getRandomBytes(randomness, COMPLEXITY);
     initstate(seed, randomness, COMPLEXITY);
 #endif
-}
-
-double getRandomNormal( double mu, double sd )
-{
-    
-    return 0;
 }
 
 
