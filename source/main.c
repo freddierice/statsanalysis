@@ -38,31 +38,39 @@ int main (int argc, const char * argv[])
      */
     
     unsigned long reps  = 10000;
-    unsigned long n     = 100;
+    unsigned long n     = 1;
+    unsigned long n_inc = 1;
+    unsigned long n_end = 5000;
     double mu           = 0;
     double sd           = 1;
     double z_off        = 1.644854;
     double t_off        = 1.676551;
-    double meanVary     = 5;
+    double meanVary     = 0;
+    double meanVary_inc = 10;
+    double meanVary_end = 100;
     sample_info *samples;
     test_results *results;
 
     samples = (sample_info *)malloc((unsigned long)sizeof(sample_info)*reps);
+    results = (test_results *)malloc((unsigned long)sizeof(test_results));
     
     PRINT_DEBUG("Initializing the random number generator");
     initializeRandom();
     
-    PRINT_DEBUG("Generating the random samples");
-    createRandomSamples(samples, reps, mu, sd, n, meanVary);
+    for( ; n <= n_end; n += n_inc )
+        for( ; meanVary <= meanVary_end; meanVary += meanVary_inc )
+        {
     
-    //PRINT_DEBUG("Writing the samples to a file");
-    //writeSamples(samples, reps, SAMPLES_FILE);
+            printf("Generating n: %lu, meanVary: %f, sd: %f\n", n, meanVary, sd);
+            createRandomSamples(samples, reps, mu, sd, n, meanVary);
     
-    PRINT_DEBUG("Generating results");
-    results = test( samples, reps, n, meanVary, z_off, t_off );
-    
-    PRINT_DEBUG("Writing the results to a file");
-    writeResults(results, RESULTS_FILE);
+            //PRINT_DEBUG("Writing the samples to a file");
+            //writeSamples(samples, reps, SAMPLES_FILE);
+            //PRINT_DEBUG("Generating results");
+            test(results, samples, reps, n, meanVary, z_off, t_off );
+            //PRINT_DEBUG("Writing the results to a file");
+            writeResults(results, RESULTS_FILE);
+        }
     
     PRINT_DEBUG("Cleaning up");
     free(results);

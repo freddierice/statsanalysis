@@ -80,7 +80,7 @@ printf("%s\n","   <t-cutoff>   a standard cutoff determined by a pearson's t-tes
 printf("\n"); 
 
 /* test.c */
-extern test_results* test( sample_info *samples, unsigned long numSamples, unsigned long n, double meanVary, double z_off, double t_off );
+extern void test( test_results *results, sample_info *samples, unsigned long numSamples, unsigned long n, double meanVary, double z_off, double t_off );
 
 /* boolean type */
 #define false 0

@@ -11,10 +11,8 @@
 inline double zstat( sample_info *sample );
 
 
-test_results* test( sample_info *samples, unsigned long numSamples, unsigned long n, double meanVary, double z_off, double t_off )
+void test( test_results *results, sample_info *samples, unsigned long numSamples, unsigned long n, double meanVary, double z_off, double t_off )
 {
-    test_results *results;
-    results             = (test_results *)malloc((unsigned long)sizeof(test_results));
     results->total      = numSamples;
     results->samp_size  = n;
     results->mean_vary  = meanVary;
@@ -44,8 +42,6 @@ test_results* test( sample_info *samples, unsigned long numSamples, unsigned lon
                 results->t_err2 += 1;
         }
     }
-    
-    return results;
 }
 
 double zstat( sample_info *sample )
