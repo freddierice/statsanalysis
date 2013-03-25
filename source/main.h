@@ -17,25 +17,38 @@
 #ifdef _WIN32
 #include <Windows.h>
 #pragma comment(lib, "advapi32.lib")
-
 #endif
+
+/* filenames */
+#define SAMPLES_FILE "samples.csv"
+#define RESULTS_FILE "results.csv"
 
 /* data.c */
 typedef struct sample_info_struct {
-    double          pop_mean;    //population mean
-    double          pop_sd;      //population standard deviation
-    double          sam_mean;    //sample mean
-    double          sam_sd;      //sample standard deviation
-    unsigned long   sam_size;    //sample size
+    double          gen_mean;   //sample generated from this mean
+    double          pop_mean;   //population mean
+    double          pop_sd;     //population standard deviation
+    double          sam_mean;   //sample mean
+    double          sam_sd;     //sample standard deviation
+    unsigned long   sam_size;   //sample size
 } sample_info;
-extern void initializeSampleInfo( sample_info *s,           //initialize the sample info
-                                 unsigned long n);    
+typedef struct test_results_struct {
+    unsigned long   total;      //number of tests
+    unsigned long   z_corr;     //z-test was correct
+    unsigned long   z_err1;     //made a type I error
+    unsigned long   z_err2;     //made a type II error
+    unsigned long   t_corr;     //t-test was correct
+    unsigned long   t_err1;     //made a type I error
+    unsigned long   t_err2;     //made a type II error
+} test_results;  
 
 /* write.c */
-void write(sample_info *info, unsigned long samples, const char *file);
+extern void writeSamples(sample_info *info, unsigned long samples, const char *file);
+extern void writeResults(test_results *results, const char *file);
 
 
 /* random.c */
+#define RANDOM_BUF 500                                      //the number of random bytes to load at once
 #define COMPLEXITY 256                                      //the complexity of the algorithm 
                                                             //(256 is the max supported)
 #define EPOCH_POOl "/dev/urandom"                           //the epoch pool to take the randomness
@@ -54,9 +67,22 @@ extern double getRandomNormal(double sd, double mean);
 
 /* printing to console */
 #define PRINT_ERR(x)        printf("%s\n", x);
-#define PRINT_USAGE(name)   printf("Usage: %s <sample size> <mean> <std> \n\n", name)
-#define PRINT_HELP()        printf("%s\n","<sample size>   size of the samples"); \
-printf("%s\n","<std>    standard deviation."); \
+#define PRINT_DEBUG(x)      printf("%s\n", x);
+#define PRINT_USAGE(name)   printf("Usage: %s <repititions> <sample size> <mean> <std> <z-cutoff> <t-cutoff> \n\n", name)
+#define PRINT_HELP()        printf("%s\n","<repititions> The number of samples"); \
+printf("%s\n","<sample size>   size of the samples"); \
+printf("%s\n","       <mean>   mean of the randomely generated samples"); \
+printf("%s\n","        <std>   standard deviation of the randomely generated samples."); \
+printf("%s\n","   <z-cutoff>   a standard z score cutoff."); \
+printf("%s\n","   <t-cutoff>   a standard cutoff determined by a pearson's t-test."); \
 printf("\n"); 
+
+/* test.c */
+extern test_results* test( sample_info *samples, unsigned long n, double z_off, double t_off );
+
+/* boolean type */
+#define false 0
+#define true 1
+typedef unsigned char bool; // or #define bool int
 
 #endif /* __MAIN_H__ */

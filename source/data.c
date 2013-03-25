@@ -12,33 +12,33 @@ void createRandomSamples( sample_info *samples, unsigned long repititions, doubl
 	unsigned long i;
 	unsigned long j;
 
-    initializeSampleInfo(samples, repititions);
     for (i = 0; i < repititions; ++i) 
     {
+        printf("%s%lu\n", "Calculating number: ", i);
         double *data = (double *)malloc(n*sizeof(double));
         double mean = 0;
 		double sumSquareDifs;
 
+        //get half from the actual mean, and half not.
+        double gen_mean = mu;
+        if( i % 2 )
+            gen_mean = getRandomNormal(mu, sd);
         for( j = 0; j < n; ++j )
         {
-            data[j] = getRandomNormal(mu, sd);
+            data[j] = getRandomNormal(gen_mean, sd);
             mean += data[j];
         }
+        
         mean /= (double)n;
         
         sumSquareDifs = 0;
         for( j = 0; j < n; ++j )
             sumSquareDifs += pow(mean-data[j],2);
         
-        samples[i].pop_mean = mu;
+        samples[i].pop_mean = gen_mean;
         samples[i].pop_sd   = sd;
         samples[i].sam_mean = mean;
         samples[i].sam_sd   = sumSquareDifs / (double)n;
         samples[i].sam_size = n;
     }
-}
-
-void initializeSampleInfo( sample_info *s, unsigned long samples )
-{
-    s = (sample_info *)malloc((unsigned long)sizeof(sample_info));
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5BA159491700154500884196 /* test.c in Sources */ = {isa = PBXBuildFile; fileRef = 5BA159481700154500884196 /* test.c */; };
 		5BA3FDD016F99400004023F6 /* data.c in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3FDCB16F99400004023F6 /* data.c */; };
 		5BA3FDD116F99400004023F6 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3FDCC16F99400004023F6 /* main.c */; };
 		5BA3FDD216F99400004023F6 /* random.c in Sources */ = {isa = PBXBuildFile; fileRef = 5BA3FDCE16F99400004023F6 /* random.c */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		5B23E43816F994B5003CFF62 /* Stats_Analysis.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; name = Stats_Analysis.1; path = ../../source/Stats_Analysis.1; sourceTree = "<group>"; };
 		5B4FB59516F20D40007ED085 /* Stats Analysis */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Stats Analysis"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BA159481700154500884196 /* test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = test.c; path = ../../source/test.c; sourceTree = "<group>"; };
 		5BA3FDCB16F99400004023F6 /* data.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = data.c; path = ../../source/data.c; sourceTree = "<group>"; };
 		5BA3FDCC16F99400004023F6 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = ../../source/main.c; sourceTree = "<group>"; };
 		5BA3FDCD16F99400004023F6 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main.h; path = ../../source/main.h; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				5BA3FDCD16F99400004023F6 /* main.h */,
 				5BA3FDCE16F99400004023F6 /* random.c */,
 				5BA3FDCF16F99400004023F6 /* write.c */,
+				5BA159481700154500884196 /* test.c */,
 			);
 			name = "Stats Analysis";
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 				5BA3FDD216F99400004023F6 /* random.c in Sources */,
 				5BA3FDD316F99400004023F6 /* write.c in Sources */,
 				5BA9AEF316FE2AC7002F3C5E /* normal.c in Sources */,
+				5BA159491700154500884196 /* test.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

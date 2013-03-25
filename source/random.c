@@ -7,13 +7,21 @@
 
 #include "main.h"
 
+/* Internal Function */
+void generateRandomBytes(void);
+
 /* Internal Globals */
 #ifdef _WIN32
 HCRYPTPROV hProvider = 0;
 #endif
+char *randomBytes;
+int randomBytesLeft;
 
 void initializeRandom(void)
 {   
+    randomBytes = (char *)malloc(RANDOM_BUF);
+    randomBytesLeft = RANDOM_BUF;
+    generateRandomBytes();
 #ifdef _WIN32
 	if (!CryptAcquireContextW(&hProvider, 0, 0, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT | CRYPT_SILENT))
 	{
@@ -44,9 +52,18 @@ double getRandom( void )
 
 void getRandomBytes(char* buf, short bufLength)
 {
-    
+    int i;
+    if( randomBytesLeft > bufLength )
+        generateRandomBytes();
+    randomBytesLeft -= bufLength;
+    for( i = 0; i < bufLength; ++i )
+        buf[i] = randomBytes[i];
+}
+
+void generateRandomBytes(void)
+{
 #ifdef _WIN32
-	if (!CryptGenRandom(hProvider, (DWORD)bufLength, (BYTE *)buf))
+	if (!CryptGenRandom(hProvider, (DWORD)RANDOM_BUF, (BYTE *)randomBytes))
 	{
 		PRINT_ERR("Error generating randomness");
 	}
@@ -54,8 +71,8 @@ void getRandomBytes(char* buf, short bufLength)
 	FILE *file;
 	short i;
 	file = fopen(EPOCH_POOl,"a+");
-	for( i = 0; i < bufLength; ++i )
-        buf[i] = getc(file);
+	for( i = 0; i < RANDOM_BUF; ++i )
+        randomBytes[i] = getc(file);
     fclose(file);
 #endif
 }
