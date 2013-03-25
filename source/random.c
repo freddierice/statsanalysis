@@ -15,12 +15,11 @@ void generateRandomBytes(void);
 HCRYPTPROV hProvider = 0;
 #endif
 char *randomBytes;
-int randomBytesLeft;
+int byteIter;
 
 void initializeRandom(void)
 {   
     randomBytes = (char *)malloc(RANDOM_BUF);
-    randomBytesLeft = RANDOM_BUF;
     generateRandomBytes();
 #ifdef _WIN32
 	if (!CryptAcquireContextW(&hProvider, 0, 0, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT | CRYPT_SILENT))
@@ -52,12 +51,16 @@ double getRandom( void )
 
 void getRandomBytes(char* buf, short bufLength)
 {
-    int i;
-    if( randomBytesLeft > bufLength )
-        generateRandomBytes();
-    randomBytesLeft -= bufLength;
-    for( i = 0; i < bufLength; ++i )
-        buf[i] = randomBytes[i];
+    while( bufLength > 0 )
+    {
+        if( byteIter == RANDOM_BUF )
+            generateRandomBytes();
+        
+        buf[bufLength - 1] = randomBytes[byteIter];
+        
+        ++byteIter;
+        --bufLength;
+    }
 }
 
 void generateRandomBytes(void)
@@ -75,4 +78,6 @@ void generateRandomBytes(void)
         randomBytes[i] = getc(file);
     fclose(file);
 #endif
+    byteIter = 0;
 }
+

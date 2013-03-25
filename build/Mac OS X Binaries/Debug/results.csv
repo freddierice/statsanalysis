@@ -1,2 +1,10 @@
-total,zcorr,zerr1,zerr2,tcorr,terr1,terr2,n
-50,23,25,2,25,25,0
+n,variability,zcorr,zerr1,zerr2,tcorr,terr1,terr2,total
+100,5.000000,9326,557,137,9341,522,137,10000
+n,variability,zcorr,zerr1,zerr2,tcorr,terr1,terr2,total
+100,5.000000,9335,578,107,9348,543,109,10000
+n,variability,zcorr,zerr1,zerr2,tcorr,terr1,terr2,total
+100,5.000000,9324,558,138,9331,527,142,10000
+n,variability,zcorr,zerr1,zerr2,tcorr,terr1,terr2,total
+100,5.000000,9318,555,147,9337,514,149,10000
+n,variability,zcorr,zerr1,zerr2,tcorr,terr1,terr2,total
+100,5.000000,9310,585,125,9323,550,127,10000

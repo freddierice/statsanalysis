@@ -47,7 +47,7 @@ void initializeNormal(void)
     exit(0);
 }
 
-double getRandomNormal(double sd, double mean)
+double getRandomNormal(double mean, double sd)
 {
     return randNormal()*sd + mean;
 }
@@ -55,7 +55,6 @@ double getRandomNormal(double sd, double mean)
 double randNormal(void)
 {
     unsigned char r, n;
-    
     r = 0;
     n = 1;
     getRandomBytes((char *)&r, 1);
@@ -63,9 +62,12 @@ double randNormal(void)
     r >>= 1;
     
     if( r == 127 )
-        r = 126;
+        return randNormal();
         //return getRandom()*randNormalSlow()*(-n);
-    return getRandom()*x[r]*(-n);
+    if( n )
+        return -1*getRandom()*x[r];
+    else
+        return getRandom()*x[r];
 }
 
 //http://www.dtic.mil/cgi-bin/GetTRDoc?AD=AD423993&Location=U2&doc=GetTRDoc.pdf

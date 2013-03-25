@@ -36,28 +36,37 @@ int main (int argc, const char * argv[])
     sample_info *samples;
     test_results *results;
      */
-    unsigned long reps  = 100;
-    unsigned long n     = 50;
+    
+    unsigned long reps  = 10000;
+    unsigned long n     = 100;
     double mu           = 0;
     double sd           = 1;
     double z_off        = 1.644854;
     double t_off        = 1.676551;
+    double meanVary     = 5;
     sample_info *samples;
     test_results *results;
-    
+
     samples = (sample_info *)malloc((unsigned long)sizeof(sample_info)*reps);
     
     PRINT_DEBUG("Initializing the random number generator");
     initializeRandom();
     
     PRINT_DEBUG("Generating the random samples");
-    createRandomSamples(samples, reps, mu, sd, n);
+    createRandomSamples(samples, reps, mu, sd, n, meanVary);
     
-    PRINT_DEBUG("Writing the samples to a file");
-    writeSamples(samples, n, SAMPLES_FILE);
+    //PRINT_DEBUG("Writing the samples to a file");
+    //writeSamples(samples, reps, SAMPLES_FILE);
     
-    results = test( samples, n, z_off, t_off );
+    PRINT_DEBUG("Generating results");
+    results = test( samples, reps, n, meanVary, z_off, t_off );
+    
+    PRINT_DEBUG("Writing the results to a file");
     writeResults(results, RESULTS_FILE);
+    
+    PRINT_DEBUG("Cleaning up");
+    free(results);
+    free(samples);
     
     return 0;
 }

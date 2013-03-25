@@ -34,12 +34,14 @@ typedef struct sample_info_struct {
 } sample_info;
 typedef struct test_results_struct {
     unsigned long   total;      //number of tests
+    unsigned long   samp_size;  //size of the samples
     unsigned long   z_corr;     //z-test was correct
     unsigned long   z_err1;     //made a type I error
     unsigned long   z_err2;     //made a type II error
     unsigned long   t_corr;     //t-test was correct
     unsigned long   t_err1;     //made a type I error
     unsigned long   t_err2;     //made a type II error
+    double          mean_vary;  //variability in the mean
 } test_results;  
 
 /* write.c */
@@ -48,7 +50,7 @@ extern void writeResults(test_results *results, const char *file);
 
 
 /* random.c */
-#define RANDOM_BUF 500                                      //the number of random bytes to load at once
+#define RANDOM_BUF 25000                                    //the number of random bytes to load at once
 #define COMPLEXITY 256                                      //the complexity of the algorithm 
                                                             //(256 is the max supported)
 #define EPOCH_POOl "/dev/urandom"                           //the epoch pool to take the randomness
@@ -57,13 +59,13 @@ extern double getRandom( void );                            //get a random numbe
 extern void createRandomSamples( sample_info *samples,      //create random samples based off
                                 unsigned long repititions,  //the gaussian curve
                                 double mu, double sd, 
-                                unsigned long n );   
+                                unsigned long n, double meanVary );   
 extern void getRandomBytes(char* buf, short bufLength);            //get random bytes
 
 
 /* normal.c */
 extern void initializeNormal(void);
-extern double getRandomNormal(double sd, double mean);
+extern double getRandomNormal(double mean, double sd);
 
 /* printing to console */
 #define PRINT_ERR(x)        printf("%s\n", x);
@@ -78,7 +80,7 @@ printf("%s\n","   <t-cutoff>   a standard cutoff determined by a pearson's t-tes
 printf("\n"); 
 
 /* test.c */
-extern test_results* test( sample_info *samples, unsigned long n, double z_off, double t_off );
+extern test_results* test( sample_info *samples, unsigned long numSamples, unsigned long n, double meanVary, double z_off, double t_off );
 
 /* boolean type */
 #define false 0
