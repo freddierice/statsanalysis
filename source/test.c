@@ -23,16 +23,17 @@ void *doTestThread(void *info)
     //create the results
     test(results, samples, data->reps, data->n, data->meanVary, data->z_off, data->t_off);
     
-    //the file writing is locked
-    pthread_mutex_lock(&data->lock);
+    //write to the file
     writeResults(results, RESULTS_FILE);
-    pthread_mutex_unlock(&data->lock);
     
     //free(data);
     free(samples);
     free(results);
     
-    return info;
+    //exit this thread
+    pthread_exit(NULL);
+    
+    return NULL;
 }
 
 void test( test_results *results, sample_info *samples, unsigned long numSamples, unsigned long n, double meanVary, double z_off, double t_off )

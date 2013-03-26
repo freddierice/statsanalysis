@@ -25,8 +25,8 @@
 #define RESULTS_FILE "results.csv"
 
 /* threading */
-#define THREADS 65000
-#define CONC_THREADS 250
+#define THREADS 50000
+#define CONC_THREADS 25
 /* data.c */
 typedef struct sample_info_struct {
     double          gen_mean;   //sample generated from this mean
@@ -55,7 +55,6 @@ typedef struct thread_data_struct {
     double          meanVary;   //variation in the mean
     double          z_off;      //z offset
     double          t_off;      //t offset
-    pthread_mutex_t lock;        //file lock
 } thread_data;  
 
 /* write.c */

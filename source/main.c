@@ -71,24 +71,21 @@ int main (int argc, const char * argv[])
     initializeRandom();
     
     PRINT_DEBUG("Initializing the thread data");
-    pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;;
     for( ; n <= n_end; n += n_inc )
     {
         for( ; sd <= sd_end; sd += sd_inc )
         {
             for( ; meanVary <= meanVary_end; meanVary += meanVary_inc )
             {
-                thread_data      *data = (thread_data *)malloc(sizeof(thread_data));
-                data->lock       = lock;
-                data->mu         = mu;
-                data->sd         = sd;
-                data->n          = n;
-                data->t_off      = t_offs[n-2]; //t_offs starts with 1 degree of freedom
-                data->z_off      = z_off;
-                data->reps       = reps;
-                data->meanVary   = meanVary;
-                
-                threadData[iter] = *data;
+                thread_data *data = (thread_data *)malloc(sizeof(thread_data));
+                data->mu          = mu;
+                data->sd          = sd;
+                data->n           = n;
+                data->t_off       = t_offs[n-2]; //t_offs starts with 1 degree of freedom
+                data->z_off       = z_off;
+                data->reps        = reps;
+                data->meanVary    = meanVary;
+                threadData[iter]  = *data;
                 /*
                 printf("Generating n: %lu, meanVary: %f, sd: %f\n", n, meanVary, sd);
                 createRandomSamples(samples, reps, mu, sd, n, meanVary);
@@ -118,7 +115,7 @@ int main (int argc, const char * argv[])
         PRINT_DEBUG("Waiting for the threads to join with the main thread");
         for( i = tc*CONC_THREADS; i < CONC_THREADS*(tc+1); ++i )
             pthread_join(threads[i], NULL);
-        printf("Done with %f%% of the threads\n",(double)(tc*CONC_THREADS)/THREADS);
+        printf("Done with %f%% of the threads\n",(double)(tc*CONC_THREADS*100)/THREADS);
     }
     
     printf("Finished with %lu threads.\n", iter);
