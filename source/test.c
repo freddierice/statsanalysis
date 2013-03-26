@@ -10,13 +10,37 @@
 /* Internal Functions */
 inline double zstat( sample_info *sample );
 
+void *doTestThread(void *info)
+{
+    //Initialize the datastructures
+    thread_data *data       = (thread_data *)info;
+    sample_info *samples    = (sample_info *)malloc(sizeof(sample_info)* data->reps);
+    test_results *results   = (test_results *)malloc(sizeof(test_results));
+    
+    //create the samples
+    createRandomSamples(samples, data->reps, data->mu, data->sd, data->n, data->meanVary);
+    
+    //create the results
+    test(results, samples, data->reps, data->n, data->meanVary, data->z_off, data->t_off);
+    
+    //the file writing is locked
+    pthread_mutex_lock(&data->lock);
+    writeResults(results, RESULTS_FILE);
+    pthread_mutex_unlock(&data->lock);
+    
+    //free(data);
+    free(samples);
+    free(results);
+    
+    return info;
+}
 
 void test( test_results *results, sample_info *samples, unsigned long numSamples, unsigned long n, double meanVary, double z_off, double t_off )
 {
     results->total      = numSamples;
     results->samp_size  = n;
     results->mean_vary  = meanVary;
-    for(;numSamples > 0; -- numSamples)
+    for(;numSamples > 0; --numSamples)
     {
         sample_info *s = &samples[numSamples-1];
         if( zstat(s) > z_off ){

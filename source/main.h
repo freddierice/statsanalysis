@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <pthread.h>
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -23,6 +24,9 @@
 #define SAMPLES_FILE "samples.csv"
 #define RESULTS_FILE "results.csv"
 
+/* threading */
+#define THREADS 65000
+#define CONC_THREADS 250
 /* data.c */
 typedef struct sample_info_struct {
     double          gen_mean;   //sample generated from this mean
@@ -43,6 +47,16 @@ typedef struct test_results_struct {
     unsigned long   t_err2;     //made a type II error
     double          mean_vary;  //variability in the mean
 } test_results;  
+typedef struct thread_data_struct {
+    unsigned long   n;          //sample size
+    unsigned long   reps;       //repititions
+    double          mu;         //population mean
+    double          sd;         //population standard deviation
+    double          meanVary;   //variation in the mean
+    double          z_off;      //z offset
+    double          t_off;      //t offset
+    pthread_mutex_t lock;        //file lock
+} thread_data;  
 
 /* write.c */
 extern void writeSamples(sample_info *info, unsigned long samples, const char *file);
@@ -81,10 +95,16 @@ printf("\n");
 
 /* test.c */
 extern void test( test_results *results, sample_info *samples, unsigned long numSamples, unsigned long n, double meanVary, double z_off, double t_off );
+void *doTestThread(void *info);
 
 /* boolean type */
+#ifndef __cplusplus
 #define false 0
 #define true 1
 typedef unsigned char bool; // or #define bool int
+#endif
+
+/* Offsets for the t distribution at a 95% confidence level */
+
 
 #endif /* __MAIN_H__ */

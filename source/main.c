@@ -4,8 +4,8 @@
 //
 //  Created by Freddie Rice on 3/14/13.
 //
-
 #include "main.h"
+#include "tdist.h"
 
 int main (int argc, const char * argv[])
 {
@@ -37,19 +37,32 @@ int main (int argc, const char * argv[])
     test_results *results;
      */
     
+    
     unsigned long reps  = 10000;
-    unsigned long n     = 1;
-    unsigned long n_inc = 1;
-    unsigned long n_end = 5000;
     double mu           = 0;
-    double sd           = 1;
+    
+    unsigned long n_ini = 2;
+    unsigned long n_end = 2000;
+    unsigned long n_inc = 1;
+    double sd_ini       = 1;
+    double sd_inc       = 2;
+    double sd_end       = 10;
+    double meanVary_ini = 1;
+    double meanVary_inc = 2;
+    double meanVary_end = 10;
+    
     double z_off        = 1.644854;
-    double t_off        = 1.676551;
-    double meanVary     = 0;
-    double meanVary_inc = 10;
-    double meanVary_end = 100;
-    sample_info *samples;
-    test_results *results;
+    
+    double meanVary     = meanVary_ini;
+    double sd           = sd_ini;
+    unsigned long n     = n_ini;
+    sample_info   *samples;
+    test_results  *results;
+    thread_data   threadData[THREADS];
+    pthread_t     threads[CONC_THREADS];
+    long iter = 0;
+    long i    = 0;
+    long tc   = 0;
 
     samples = (sample_info *)malloc((unsigned long)sizeof(sample_info)*reps);
     results = (test_results *)malloc((unsigned long)sizeof(test_results));
@@ -57,24 +70,65 @@ int main (int argc, const char * argv[])
     PRINT_DEBUG("Initializing the random number generator");
     initializeRandom();
     
+    PRINT_DEBUG("Initializing the thread data");
+    pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;;
     for( ; n <= n_end; n += n_inc )
-        for( ; meanVary <= meanVary_end; meanVary += meanVary_inc )
+    {
+        for( ; sd <= sd_end; sd += sd_inc )
         {
-    
-            printf("Generating n: %lu, meanVary: %f, sd: %f\n", n, meanVary, sd);
-            createRandomSamples(samples, reps, mu, sd, n, meanVary);
-    
-            //PRINT_DEBUG("Writing the samples to a file");
-            //writeSamples(samples, reps, SAMPLES_FILE);
-            //PRINT_DEBUG("Generating results");
-            test(results, samples, reps, n, meanVary, z_off, t_off );
-            //PRINT_DEBUG("Writing the results to a file");
-            writeResults(results, RESULTS_FILE);
+            for( ; meanVary <= meanVary_end; meanVary += meanVary_inc )
+            {
+                thread_data      *data = (thread_data *)malloc(sizeof(thread_data));
+                data->lock       = lock;
+                data->mu         = mu;
+                data->sd         = sd;
+                data->n          = n;
+                data->t_off      = t_offs[n-2]; //t_offs starts with 1 degree of freedom
+                data->z_off      = z_off;
+                data->reps       = reps;
+                data->meanVary   = meanVary;
+                
+                threadData[iter] = *data;
+                /*
+                printf("Generating n: %lu, meanVary: %f, sd: %f\n", n, meanVary, sd);
+                createRandomSamples(samples, reps, mu, sd, n, meanVary);
+        
+                //PRINT_DEBUG("Writing the samples to a file");
+                //writeSamples(samples, reps, SAMPLES_FILE);
+                //PRINT_DEBUG("Generating results");
+                test(results, samples, reps, n, meanVary, z_off, t_off );
+                //PRINT_DEBUG("Writing the results to a file");
+                writeResults(results, RESULTS_FILE);
+                 */
+                ++iter;
+            }
+            meanVary = meanVary_ini;
         }
+        sd = sd_ini;
+    }
     
+    printf("%lu\n", iter);
+    
+    for(tc = 0; tc < THREADS / CONC_THREADS; ++tc)
+    {
+        PRINT_DEBUG("Starting threads");
+        for( i = tc*CONC_THREADS; i < CONC_THREADS*(tc+1); ++i )
+            pthread_create(&threads[i], NULL, doTestThread, (void *)&threadData[i]);
+        
+        PRINT_DEBUG("Waiting for the threads to join with the main thread");
+        for( i = tc*CONC_THREADS; i < CONC_THREADS*(tc+1); ++i )
+            pthread_join(threads[i], NULL);
+        printf("Done with %f%% of the threads\n",(double)(tc*CONC_THREADS)/THREADS);
+    }
+    
+    printf("Finished with %lu threads.\n", iter);
     PRINT_DEBUG("Cleaning up");
-    free(results);
-    free(samples);
+    for (iter = iter-1; iter >= 0; --iter) {
+        //free(threadData[iter]);
+    }
+    
+    //free(results);
+    //free(samples);
     
     return 0;
 }
