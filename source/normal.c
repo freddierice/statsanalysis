@@ -1,4 +1,5 @@
 #include "main.h"
+#include <math.h>
 
 /* Math Constants */
 #define GAUSS_CONST	   -1.83787706640935 
