@@ -16,11 +16,13 @@ HCRYPTPROV hProvider = 0;
 #endif
 char *randomBytes;
 int byteIter;
+pthread_mutex_t randomBytesLock;
 
 void initializeRandom(void)
 {   
     randomBytes = (char *)malloc(RANDOM_BUF);
     generateRandomBytes();
+    pthread_mutex_init(&randomBytesLock, NULL);
 #ifdef _WIN32
 	if (!CryptAcquireContextW(&hProvider, 0, 0, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT | CRYPT_SILENT))
 	{
@@ -56,7 +58,9 @@ void getRandomBytes(char* buf, short bufLength)
         if( byteIter == RANDOM_BUF )
             generateRandomBytes();
         
+        pthread_mutex_lock(&randomBytesLock);
         buf[bufLength - 1] = randomBytes[byteIter];
+        pthread_mutex_unlock(&randomBytesLock);
         
         ++byteIter;
         --bufLength;
@@ -65,6 +69,7 @@ void getRandomBytes(char* buf, short bufLength)
 
 void generateRandomBytes(void)
 {
+    pthread_mutex_lock(&randomBytesLock);
 #ifdef _WIN32
 	if (!CryptGenRandom(hProvider, (DWORD)RANDOM_BUF, (BYTE *)randomBytes))
 	{
@@ -79,5 +84,6 @@ void generateRandomBytes(void)
     fclose(file);
 #endif
     byteIter = 0;
+    pthread_mutex_unlock(&randomBytesLock);
 }
 

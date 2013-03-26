@@ -106,16 +106,16 @@ int main (int argc, const char * argv[])
     
     printf("%lu\n", iter);
     
+    PRINT_DEBUG("Starting threads");
     for(tc = 0; tc < THREADS / CONC_THREADS; ++tc)
     {
-        PRINT_DEBUG("Starting threads");
         for( i = tc*CONC_THREADS; i < CONC_THREADS*(tc+1); ++i )
             pthread_create(&threads[i], NULL, doTestThread, (void *)&threadData[i]);
         
-        PRINT_DEBUG("Waiting for the threads to join with the main thread");
         for( i = tc*CONC_THREADS; i < CONC_THREADS*(tc+1); ++i )
             pthread_join(threads[i], NULL);
-        printf("Done with %f%% of the threads\n",(double)(tc*CONC_THREADS*100)/THREADS);
+        
+        printf("%f%% done.\n",(double)(tc*CONC_THREADS*100)/THREADS);
     }
     
     printf("Finished with %lu threads.\n", iter);

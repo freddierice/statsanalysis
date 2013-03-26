@@ -40,5 +40,6 @@ void createRandomSamples( sample_info *samples, unsigned long repititions, doubl
         samples[i].sam_mean = mean;
         samples[i].sam_sd   = sumSquareDifs / (double)n;
         samples[i].sam_size = n;
+        free(data);
     }
 }
