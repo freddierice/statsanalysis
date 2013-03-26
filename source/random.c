@@ -53,18 +53,18 @@ double getRandom( void )
 
 void getRandomBytes(char* buf, short bufLength)
 {
+    pthread_mutex_lock(&randomBytesLock);
     while( bufLength > 0 )
     {
         if( byteIter == RANDOM_BUF )
             generateRandomBytes();
         
-        pthread_mutex_lock(&randomBytesLock);
         buf[bufLength - 1] = randomBytes[byteIter];
-        pthread_mutex_unlock(&randomBytesLock);
         
         ++byteIter;
         --bufLength;
     }
+    pthread_mutex_unlock(&randomBytesLock);
 }
 
 void generateRandomBytes(void)
