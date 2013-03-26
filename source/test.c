@@ -38,9 +38,11 @@ void *doTestThread(void *info)
 
 void test( test_results *results, sample_info *samples, unsigned long numSamples, unsigned long n, double meanVary, double z_off, double t_off )
 {
+    memset((void *)results,0,sizeof(test_results));
     results->total      = numSamples;
     results->samp_size  = n;
     results->mean_vary  = meanVary;
+    
     for(;numSamples > 0; --numSamples)
     {
         sample_info *s = &samples[numSamples-1];
