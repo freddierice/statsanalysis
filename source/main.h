@@ -26,7 +26,7 @@
 
 /* threading */
 #define THREADS 50000
-#define CONC_THREADS 25
+#define CONC_THREADS 250
 /* data.c */
 typedef struct sample_info_struct {
     double          gen_mean;   //sample generated from this mean
