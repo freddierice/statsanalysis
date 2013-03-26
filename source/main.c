@@ -56,16 +56,11 @@ int main (int argc, const char * argv[])
     double meanVary     = meanVary_ini;
     double sd           = sd_ini;
     unsigned long n     = n_ini;
-    sample_info   *samples;
-    test_results  *results;
     thread_data   threadData[THREADS];
     pthread_t     threads[CONC_THREADS];
     long iter = 0;
     long i    = 0;
     long tc   = 0;
-
-    samples = (sample_info *)malloc((unsigned long)sizeof(sample_info)*reps);
-    results = (test_results *)malloc((unsigned long)sizeof(test_results));
     
     PRINT_DEBUG("Initializing the random number generator");
     initializeRandom();
