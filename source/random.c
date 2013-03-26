@@ -69,7 +69,6 @@ void getRandomBytes(char* buf, short bufLength)
 
 void generateRandomBytes(void)
 {
-    pthread_mutex_lock(&randomBytesLock);
 #ifdef _WIN32
 	if (!CryptGenRandom(hProvider, (DWORD)RANDOM_BUF, (BYTE *)randomBytes))
 	{
@@ -84,6 +83,5 @@ void generateRandomBytes(void)
     fclose(file);
 #endif
     byteIter = 0;
-    pthread_mutex_unlock(&randomBytesLock);
 }
 
