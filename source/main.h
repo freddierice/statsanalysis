@@ -75,6 +75,7 @@ extern void createRandomSamples( sample_info *samples,      //create random samp
                                 double mu, double sd, 
                                 unsigned long n, double meanVary, short ID );   
 extern void getRandomBytes(char* buf, short bufLength, short ID);            //get random bytes
+void cleanupRandom( void );                                 //cleanup
 
 
 /* normal.c */

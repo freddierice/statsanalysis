@@ -16,7 +16,6 @@ HCRYPTPROV hProvider = 0;
 #endif
 char **randomBytes;
 int *byteIter;
-pthread_mutex_t *randomBytesLocks;
 
 void initializeRandom(void)
 {   
@@ -26,11 +25,9 @@ void initializeRandom(void)
         randomBytes[i] = (char *)malloc(RANDOM_BUF*sizeof(char));
     
     byteIter        = (int *)malloc(CONC_THREADS*sizeof(int));
-    randomBytesLocks = (pthread_mutex_t *)malloc(CONC_THREADS*sizeof(pthread_mutex_t));
 
     for( i = 0; i < CONC_THREADS; ++i )
     {
-        pthread_mutex_init(&randomBytesLocks[i], NULL);
         byteIter[i] = 0;
         generateRandomBytes(i);
     }
@@ -49,7 +46,18 @@ void initializeRandom(void)
     getRandomBytes((char *)&seed, sizeof(seed), 0);
     getRandomBytes(randomness, COMPLEXITY, 0);
     initstate(seed, randomness, COMPLEXITY);
+    
+    free(randomness);
 #endif
+}
+
+void cleanupRandom( void )
+{
+    int i;
+    for( i = 0; i < CONC_THREADS; ++i )
+        free(randomBytes[i]);
+    free(randomBytes);
+    free(byteIter);
 }
 
 double getRandom( void )
@@ -65,7 +73,6 @@ double getRandom( void )
 
 void getRandomBytes(char* buf, short bufLength, short ID)
 {
-    pthread_mutex_lock(&randomBytesLocks[ID]);
     while( bufLength > 0 )
     {
         if( byteIter[ID] == RANDOM_BUF )
@@ -76,7 +83,6 @@ void getRandomBytes(char* buf, short bufLength, short ID)
         byteIter[ID] += 1;
         --bufLength;
     }
-    pthread_mutex_unlock(&randomBytesLocks[ID]);
 }
 
 void generateRandomBytes(short ID)

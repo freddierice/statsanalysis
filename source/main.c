@@ -115,14 +115,11 @@ int main (int argc, const char * argv[])
         printf("%f%% done.\n",(double)(tc*CONC_THREADS*100)/THREADS);
     }
     
+    
     printf("Finished with %lu threads.\n", iter);
     PRINT_DEBUG("Cleaning up");
-    for (iter = iter-1; iter >= 0; --iter) {
-        //free(threadData[iter]);
-    }
+    cleanupRandom();
     
-    //free(results);
-    //free(samples);
     
     return 0;
 }
