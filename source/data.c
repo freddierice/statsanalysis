@@ -7,7 +7,7 @@
 
 #include "main.h"
 
-void createRandomSamples( sample_info *samples, unsigned long repititions, double mu, double sd, unsigned long n, double meanVary )
+void createRandomSamples( sample_info *samples, unsigned long repititions, double mu, double sd, unsigned long n, double meanVary, short ID )
 {
 	unsigned long i;
 	unsigned long j;
@@ -21,10 +21,10 @@ void createRandomSamples( sample_info *samples, unsigned long repititions, doubl
         //get half from the actual mean, and half not.
         double gen_mean = mu;
         if( i % 2 )
-            gen_mean = getRandomNormal(mu, 5*sd);
+            gen_mean = getRandomNormal(mu, 5*sd, ID);
         for( j = 0; j < n; ++j )
         {
-            data[j] = getRandomNormal(gen_mean, sd);
+            data[j] = getRandomNormal(gen_mean, sd, ID);
             mean += data[j];
         }
         

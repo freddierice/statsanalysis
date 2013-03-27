@@ -8,21 +8,33 @@
 #include "main.h"
 
 /* Internal Function */
-void generateRandomBytes(void);
+void generateRandomBytes(short ID);
 
 /* Internal Globals */
 #ifdef _WIN32
 HCRYPTPROV hProvider = 0;
 #endif
-char *randomBytes;
-int byteIter;
-pthread_mutex_t randomBytesLock;
+char **randomBytes;
+int *byteIter;
+pthread_mutex_t *randomBytesLocks;
 
 void initializeRandom(void)
 {   
-    randomBytes = (char *)malloc(RANDOM_BUF);
-    generateRandomBytes();
-    pthread_mutex_init(&randomBytesLock, NULL);
+    int i;
+    randomBytes     = (char **)malloc(sizeof(char *)*CONC_THREADS);
+    for (i = 0; i < CONC_THREADS; ++i) 
+        randomBytes[i] = (char *)malloc(RANDOM_BUF*sizeof(char));
+    
+    byteIter        = (int *)malloc(CONC_THREADS*sizeof(int));
+    randomBytesLocks = (pthread_mutex_t *)malloc(CONC_THREADS*sizeof(pthread_mutex_t));
+
+    for( i = 0; i < CONC_THREADS; ++i )
+    {
+        pthread_mutex_init(&randomBytesLocks[i], NULL);
+        byteIter[i] = 0;
+        generateRandomBytes(i);
+    }
+    
 #ifdef _WIN32
 	if (!CryptAcquireContextW(&hProvider, 0, 0, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT | CRYPT_SILENT))
 	{
@@ -30,15 +42,15 @@ void initializeRandom(void)
 		return;
 	}
 #elif defined(__linux__) || defined(__APPLE__)
+    
 	char *randomness = (char *)malloc(COMPLEXITY);
     unsigned int seed = 0;
     
-    getRandomBytes((char *)&seed, sizeof(seed));
-    getRandomBytes(randomness, COMPLEXITY);
+    getRandomBytes((char *)&seed, sizeof(seed), 0);
+    getRandomBytes(randomness, COMPLEXITY, 0);
     initstate(seed, randomness, COMPLEXITY);
 #endif
 }
-
 
 double getRandom( void )
 {
@@ -51,23 +63,23 @@ double getRandom( void )
 	return (((double)randomNumber)/((double)0x7FFFFFFF));
 }
 
-void getRandomBytes(char* buf, short bufLength)
+void getRandomBytes(char* buf, short bufLength, short ID)
 {
-    pthread_mutex_lock(&randomBytesLock);
+    pthread_mutex_lock(&randomBytesLocks[ID]);
     while( bufLength > 0 )
     {
-        if( byteIter == RANDOM_BUF )
-            generateRandomBytes();
+        if( byteIter[ID] == RANDOM_BUF )
+            generateRandomBytes(ID);
         
-        buf[bufLength - 1] = randomBytes[byteIter];
+        buf[bufLength - 1] = randomBytes[ID][byteIter[ID]];
         
-        ++byteIter;
+        byteIter[ID] += 1;
         --bufLength;
     }
-    pthread_mutex_unlock(&randomBytesLock);
+    pthread_mutex_unlock(&randomBytesLocks[ID]);
 }
 
-void generateRandomBytes(void)
+void generateRandomBytes(short ID)
 {
 #ifdef _WIN32
 	if (!CryptGenRandom(hProvider, (DWORD)RANDOM_BUF, (BYTE *)randomBytes))
@@ -79,9 +91,9 @@ void generateRandomBytes(void)
 	short i;
 	file = fopen(EPOCH_POOl,"a+");
 	for( i = 0; i < RANDOM_BUF; ++i )
-        randomBytes[i] = getc(file);
+        randomBytes[ID][i] = getc(file);
     fclose(file);
 #endif
-    byteIter = 0;
+    byteIter[ID] = 0;
 }
 

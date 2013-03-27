@@ -12,7 +12,7 @@ double GuassianPDF( double x );
 double GaussianPDFInverse( double y );
 double GuassianInverseCDF( double p );
 double GaussianCDF( double x );
-double randNormal(void);
+double randNormal(short ID);
 double randNormalSlow(void);
 
 /* Internal Variables */
@@ -48,22 +48,22 @@ void initializeNormal(void)
     exit(0);
 }
 
-double getRandomNormal(double mean, double sd)
+double getRandomNormal(double mean, double sd, short ID)
 {
-    return randNormal()*sd + mean;
+    return randNormal(ID)*sd + mean;
 }
 
-double randNormal(void)
+double randNormal(short ID)
 {
     unsigned char r, n;
     r = 0;
     n = 1;
-    getRandomBytes((char *)&r, 1);
+    getRandomBytes((char *)&r, 1, ID);
     n &= r;
     r >>= 1;
     
     if( r == 127 )
-        return randNormal();
+        return randNormal(ID);
         //return getRandom()*randNormalSlow()*(-n);
     if( n )
         return -1*getRandom()*x[r];

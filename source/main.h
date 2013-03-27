@@ -26,7 +26,7 @@
 
 /* threading */
 #define THREADS 50000
-#define CONC_THREADS 50
+#define CONC_THREADS 10
 /* data.c */
 typedef struct sample_info_struct {
     double          gen_mean;   //sample generated from this mean
@@ -48,6 +48,7 @@ typedef struct test_results_struct {
     double          mean_vary;  //variability in the mean
 } test_results;  
 typedef struct thread_data_struct {
+    short           ID;         //thread id
     unsigned long   n;          //sample size
     unsigned long   reps;       //repititions
     double          mu;         //population mean
@@ -68,17 +69,17 @@ extern void writeResults(test_results *results, const char *file);
                                                             //(256 is the max supported)
 #define EPOCH_POOl "/dev/urandom"                           //the epoch pool to take the randomness
 extern void initializeRandom( void );                       //seed the PRNG
-extern double getRandom( void );                            //get a random number [0,1]
+extern double getRandom(void);                                  //get a random number [0,1]
 extern void createRandomSamples( sample_info *samples,      //create random samples based off
                                 unsigned long repititions,  //the gaussian curve
                                 double mu, double sd, 
-                                unsigned long n, double meanVary );   
-extern void getRandomBytes(char* buf, short bufLength);            //get random bytes
+                                unsigned long n, double meanVary, short ID );   
+extern void getRandomBytes(char* buf, short bufLength, short ID);            //get random bytes
 
 
 /* normal.c */
 extern void initializeNormal(void);
-extern double getRandomNormal(double mean, double sd);
+extern double getRandomNormal(double mean, double sd, short ID);
 
 /* printing to console */
 #define PRINT_ERR(x)        printf("%s\n", x);

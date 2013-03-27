@@ -18,7 +18,7 @@ void *doTestThread(void *info)
     test_results *results   = (test_results *)malloc(sizeof(test_results));
     
     //create the samples
-    createRandomSamples(samples, data->reps, data->mu, data->sd, data->n, data->meanVary);
+    createRandomSamples(samples, data->reps, data->mu, data->sd, data->n, data->meanVary, data->ID);
     
     //create the results
     test(results, samples, data->reps, data->n, data->meanVary, data->z_off, data->t_off);

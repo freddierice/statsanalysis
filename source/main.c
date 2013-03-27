@@ -40,7 +40,6 @@ int main (int argc, const char * argv[])
     
     unsigned long reps  = 10000;
     double mu           = 0;
-    
     unsigned long n_ini = 2;
     unsigned long n_end = 2000;
     unsigned long n_inc = 1;
@@ -105,7 +104,10 @@ int main (int argc, const char * argv[])
     for(tc = 0; tc < THREADS / CONC_THREADS; ++tc)
     {
         for( i = tc*CONC_THREADS; i < CONC_THREADS*(tc+1); ++i )
+        {
+            threadData[i].ID = i % CONC_THREADS;
             pthread_create(&threads[i], NULL, doTestThread, (void *)&threadData[i]);
+        }
         
         for( i = tc*CONC_THREADS; i < CONC_THREADS*(tc+1); ++i )
             pthread_join(threads[i], NULL);
