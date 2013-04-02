@@ -38,19 +38,19 @@ int main (int argc, const char * argv[])
      */
     
     
-    unsigned long reps  = 10000;
-    double mu           = 0;
-    unsigned long n_ini = 2;
-    unsigned long n_end = 2000;
-    unsigned long n_inc = 1;
-    double sd_ini       = 1;
-    double sd_inc       = 2;
-    double sd_end       = 10;
-    double meanVary_ini = 1;
+    unsigned long reps  = 10000;    //number of samples to take
+    double mu           = 0;        //mean of the samples
+    unsigned long n_ini = 2;        //starting number of observations in the sample
+    unsigned long n_end = 2000;     //ending number of observations in the sample
+    unsigned long n_inc = 1;        //number to increment by
+    double sd_ini       = 1;        //starting standard deviation
+    double sd_inc       = 2;        //amound to increment the standard deviation
+    double sd_end       = 10;       //ending standard deviation
+    double meanVary_ini = 1;        //
     double meanVary_inc = 2;
     double meanVary_end = 10;
     
-    double z_off        = 1.644854;
+    double z_off        = 1.959964;
     
     double meanVary     = meanVary_ini;
     double sd           = sd_ini;
