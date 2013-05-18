@@ -45,6 +45,7 @@ typedef struct test_results_struct {
     unsigned long   t_corr;     //t-test was correct
     unsigned long   t_err1;     //made a type I error
     unsigned long   t_err2;     //made a type II error
+    double          sd;         //sd
     double          mean_vary;  //variability in the mean
 } test_results;  
 typedef struct thread_data_struct {
@@ -64,16 +65,13 @@ extern void writeResults(test_results *results, const char *file);
 
 
 /* random.c */
-#define RANDOM_BUF 25000                                    //the number of random bytes to load at once
+#define RANDOM_BUF 32767                                    //the number of random bytes to load at once
 #define COMPLEXITY 256                                      //the complexity of the algorithm 
                                                             //(256 is the max supported)
 #define EPOCH_POOl "/dev/urandom"                           //the epoch pool to take the randomness
 extern void initializeRandom( void );                       //seed the PRNG
 extern double getRandom(void);                                  //get a random number [0,1]
-extern void createRandomSamples( sample_info *samples,      //create random samples based off
-                                unsigned long repititions,  //the gaussian curve
-                                double mu, double sd, 
-                                unsigned long n, double meanVary, short ID );   
+void createRandomSamples( sample_info *samples, thread_data *data );
 extern void getRandomBytes(char* buf, short bufLength, short ID);            //get random bytes
 void cleanupRandom( void );                                 //cleanup
 
@@ -95,7 +93,7 @@ printf("%s\n","   <t-cutoff>   a standard cutoff determined by a pearson's t-tes
 printf("\n"); 
 
 /* test.c */
-extern void test( test_results *results, sample_info *samples, unsigned long numSamples, unsigned long n, double meanVary, double z_off, double t_off );
+void test( test_results *results, sample_info *samples, thread_data *data );
 void *doTestThread(void *info);
 
 /* boolean type */

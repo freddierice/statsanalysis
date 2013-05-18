@@ -14,8 +14,9 @@ void generateRandomBytes(short ID);
 #ifdef _WIN32
 HCRYPTPROV hProvider = 0;
 #endif
-char **randomBytes;
-int *byteIter;
+char** restrict randomBytes;
+int* restrict byteIter;
+pthread_mutex_t fileLock;
 
 void initializeRandom(void)
 {   
@@ -26,6 +27,8 @@ void initializeRandom(void)
     
     byteIter        = (int *)malloc(CONC_THREADS*sizeof(int));
 
+    pthread_mutex_init(&fileLock, NULL);
+    
     for( i = 0; i < CONC_THREADS; ++i )
     {
         byteIter[i] = 0;
@@ -73,6 +76,7 @@ double getRandom( void )
 
 void getRandomBytes(char* buf, short bufLength, short ID)
 {
+    pthread_mutex_lock(&fileLock);
     while( bufLength > 0 )
     {
         if( byteIter[ID] == RANDOM_BUF )
@@ -83,6 +87,7 @@ void getRandomBytes(char* buf, short bufLength, short ID)
         byteIter[ID] += 1;
         --bufLength;
     }
+    pthread_mutex_unlock(&fileLock);
 }
 
 void generateRandomBytes(short ID)
@@ -93,12 +98,14 @@ void generateRandomBytes(short ID)
 		PRINT_ERR("Error generating randomness");
 	}
 #elif defined(__linux__) || defined(__APPLE__)
+    
 	FILE *file;
-	short i;
+	unsigned int i;
 	file = fopen(EPOCH_POOl,"a+");
 	for( i = 0; i < RANDOM_BUF; ++i )
         randomBytes[ID][i] = getc(file);
     fclose(file);
+    
 #endif
     byteIter[ID] = 0;
 }

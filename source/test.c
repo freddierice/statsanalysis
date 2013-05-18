@@ -14,14 +14,14 @@ void *doTestThread(void *info)
 {
     //Initialize the datastructures
     thread_data *data       = (thread_data *)info;
-    sample_info *samples    = (sample_info *)malloc(sizeof(sample_info)* data->reps);
+    sample_info *samples    = (sample_info *)malloc(sizeof(sample_info)*data->reps);
     test_results *results   = (test_results *)malloc(sizeof(test_results));
     
     //create the samples
-    createRandomSamples(samples, data->reps, data->mu, data->sd, data->n, data->meanVary, data->ID);
+    createRandomSamples(samples, data);
     
     //create the results
-    test(results, samples, data->reps, data->n, data->meanVary, data->z_off, data->t_off);
+    test(results, samples, data);
     
     //write to the file
     writeResults(results, RESULTS_FILE);
@@ -36,17 +36,19 @@ void *doTestThread(void *info)
     return NULL;
 }
 
-void test( test_results *results, sample_info *samples, unsigned long numSamples, unsigned long n, double meanVary, double z_off, double t_off )
+void test( test_results *results, sample_info *samples, thread_data *data )
 {
     memset((void *)results,0,sizeof(test_results));
-    results->total      = numSamples;
-    results->samp_size  = n;
-    results->mean_vary  = meanVary;
+    results->total      = data->reps;
+    results->samp_size  = data->n;
+    results->sd         = data->sd;
+    results->mean_vary  = data->meanVary;
     
+    long numSamples = data->reps;
     for(;numSamples > 0; --numSamples)
     {
         sample_info *s = &samples[numSamples-1];
-        if( zstat(s) > z_off ){
+        if( zstat(s) > data->z_off ){
             if( s->gen_mean == s->pop_mean )
                 results->z_err1 += 1;
             else
@@ -57,7 +59,7 @@ void test( test_results *results, sample_info *samples, unsigned long numSamples
             else
                 results->z_err2 += 1;
         }
-        if( zstat(s) > t_off ){
+        if( zstat(s) > data->t_off ){
             if( s->gen_mean == s->pop_mean )
                 results->t_err1 += 1;
             else

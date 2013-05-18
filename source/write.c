@@ -36,10 +36,10 @@ void writeResults(test_results *r, const char *file)
 #endif
     
     if( !hasHeader )
-        fprintf(outfile, "n,variability,zcorr,zerr1,zerr2,tcorr,terr1,terr2,total\n");
+        fprintf(outfile, "n,sd,variability,zcorr,zerr1,zerr2,tcorr,terr1,terr2,total\n");
     
-    fprintf(outfile, "%lu,%f,%lu,%lu,%lu,%lu,%lu,%lu,%lu\n", 
-            r->samp_size, r->mean_vary, r->z_corr, r->z_err1, r->z_err2, r->t_corr, r->t_err1, r->t_err2,r->total);
+    fprintf(outfile, "%lu,%f,%f,%lu,%lu,%lu,%lu,%lu,%lu,%lu\n", 
+            r->samp_size, r->sd, r->mean_vary, r->z_corr, r->z_err1, r->z_err2, r->t_corr, r->t_err1, r->t_err2,r->total);
     fclose(outfile);
     hasHeader = true;
 }
