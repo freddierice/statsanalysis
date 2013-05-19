@@ -27,7 +27,7 @@ void createRandomSamples( sample_info *samples, thread_data *data )
         //get half from the actual mean, and half not.
         double gen_mean = mu;
         if( i % 2 )
-            gen_mean = 100;
+            gen_mean = data->meanVary;
         for( j = 0; j < n; ++j )
         {
             sam_data[j] = getRandomNormal(gen_mean, sd, ID);
