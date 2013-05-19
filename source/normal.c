@@ -59,7 +59,8 @@ double randNormal(short ID)
     r = 0;
     n = 1;
     //getRandomBytes((char *)&r, 1, ID);
-    r = ((char *)random())[0];
+    long temp = random();
+    r = ((char *)&temp)[0];
     n &= r;
     r >>= 1;
     
