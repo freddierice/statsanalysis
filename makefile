@@ -1,7 +1,7 @@
 CC=g++
 LD=g++
 CFLAGS=-Wall -lpthread
-EXEC_NAME=stats_analysis
+EXEC_NAME=stats
 
 SRC_DIR=source
 BUILD_DIR=build/linux
