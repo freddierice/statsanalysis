@@ -72,6 +72,7 @@ int main (int argc, const char * argv[])
             for( ; meanVary <= meanVary_end; meanVary += meanVary_inc )
             {
                 thread_data *data = (thread_data *)malloc(sizeof(thread_data));
+                memset((void *)data,0,sizeof(thread_data));
                 data->mu          = mu;
                 data->sd          = sd;
                 data->n           = n;
