@@ -45,9 +45,9 @@ void test( test_results *results, sample_info *samples, thread_data *data )
     results->mean_vary  = data->meanVary;
     
     long numSamples = data->reps;
-    for(;numSamples > 0; --numSamples)
+    for(;numSamples >= 0; --numSamples)
     {
-        sample_info *s = &samples[numSamples-1];
+        sample_info *s = &samples[numSamples];
         if( zstat(s) > data->z_off ){
             if( s->gen_mean == s->pop_mean )
                 results->z_err1 += 1;
