@@ -118,11 +118,11 @@ int main (int argc, const char * argv[])
         for( i = tc*CONC_THREADS; i < CONC_THREADS*(tc+1); ++i )
         {
             threadData[i].ID = i % CONC_THREADS;
-            pthread_create(&threads[i], NULL, doTestThread, (void *)&threadData[i]);
+            pthread_create(&threads[i % CONC_THREADS], NULL, doTestThread, (void *)&threadData[i]);
         }
         
         for( i = tc*CONC_THREADS; i < CONC_THREADS*(tc+1); ++i )
-            pthread_join(threads[i], NULL);
+            pthread_join(threads[i % CONC_THREADS], NULL);
         
         printf("%f%% done.\n",(double)(tc*CONC_THREADS*100)/THREADS);
     }
