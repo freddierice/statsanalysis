@@ -8,14 +8,26 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "0"
-         filePath = "/Users/farice14/Documents/Xcode/StatsAnalysis/source/data.c"
-         timestampString = "390694020.874196"
+         filePath = "/Users/farice14/Documents/Xcode/StatsAnalysis/source/random.c"
+         timestampString = "390695363.894953"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "80"
+         endingLineNumber = "80"
+         landmarkName = "getRandomBytes()"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "0"
+         filePath = "/data.c"
+         timestampString = "390695691.326808"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "48"
-         endingLineNumber = "48"
-         landmarkName = "createRandomSamples()"
-         landmarkType = "7">
+         endingLineNumber = "48">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

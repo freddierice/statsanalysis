@@ -9,7 +9,18 @@
 
 int main (int argc, const char * argv[])
 {
-    
+    /*
+    double total = 0;
+    int all = 5000000;
+    for( int i = 0; i < all; ++i)
+    {
+        double temp = getRandomNormal(0, 1, 0);
+        if( temp > 1.959964 || temp < -1.959964 )
+            ++total;
+    }
+    printf("%f\n", total/all);
+    return 0;
+    */
     /*
     if(argc == 2 && (!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")))
     {
