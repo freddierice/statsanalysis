@@ -76,6 +76,7 @@ double getRandom( void )
 
 void getRandomBytes(char* buf, short bufLength, short ID)
 {
+    pthread_mutex_lock(&fileLock);
     --bufLength; // make indexing easier
     while( bufLength > 0 )
     {
@@ -86,9 +87,9 @@ void getRandomBytes(char* buf, short bufLength, short ID)
             buf[bufLength] = bytes[j];
         }
     }
-
+    pthread_mutex_unlock(&fileLock);
     /*
-    pthread_mutex_lock(&fileLock);
+    
     while( bufLength > 0 )
     {
         if( byteIter[ID] == RANDOM_BUF )
@@ -99,7 +100,7 @@ void getRandomBytes(char* buf, short bufLength, short ID)
         byteIter[ID] += 1;
         --bufLength;
     }
-    pthread_mutex_unlock(&fileLock);
+    
      */
 }
 
