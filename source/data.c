@@ -20,7 +20,7 @@ void createRandomSamples( sample_info *samples, thread_data *data )
 
     for (i = 0; i < data->reps; ++i) 
     {
-        double* restrict sam_data = (double *)malloc(n*sizeof(double));
+        double *sam_data = (double *)malloc(n*sizeof(double));
         double mean = 0;
 		double sumSquareDifs;
 
