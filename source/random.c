@@ -14,8 +14,8 @@ void generateRandomBytes(short ID);
 #ifdef _WIN32
 HCRYPTPROV hProvider = 0;
 #endif
-char** restrict randomBytes;
-int* restrict byteIter;
+char** randomBytes;
+int* byteIter;
 pthread_mutex_t fileLock;
 
 void initializeRandom(void)

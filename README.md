@@ -8,3 +8,5 @@ Currently compiles on mac os x and linux.  I have not tested the program on wind
 Efficiency:
 -Takes use of however many cores are on the computer
 -Does not use up much memory
+
+How to compile:
