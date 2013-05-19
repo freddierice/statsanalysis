@@ -22,7 +22,7 @@ void createRandomSamples( sample_info *samples, thread_data *data )
     {
         double *sam_data = (double *)malloc(n*sizeof(double));
         double mean = 0;
-		double sumSquareDifs;
+		double sumSquareDifs = 0;
 
         //get half from the actual mean, and half not.
         double gen_mean = mu;
@@ -36,7 +36,6 @@ void createRandomSamples( sample_info *samples, thread_data *data )
         
         mean /= (double)n;
         
-        sumSquareDifs = 0;
         for( j = 0; j < n; ++j )
             sumSquareDifs += pow(mean-sam_data[j],2);
         
