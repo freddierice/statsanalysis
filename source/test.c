@@ -48,6 +48,8 @@ void test( test_results *results, sample_info *samples, thread_data *data )
     for(;numSamples >= 0; --numSamples)
     {
         sample_info *s = &samples[numSamples];
+        if(s->sam_sd == 0)
+            continue;
         if( zstat(s) > data->z_off ){
             if( s->gen_mean == s->pop_mean )
                 results->z_err1 += 1;
