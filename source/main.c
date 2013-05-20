@@ -117,7 +117,7 @@ int main (int argc, const char * argv[])
     {
         for( i = tc*CONC_THREADS; i < CONC_THREADS*(tc+1); ++i )
         {
-            threadData[i].ID = i % CPU_COUNT;
+            threadData[i].ID = i % CPUS;
             pthread_create(&threads[i % CONC_THREADS], NULL, doTestThread, (void *)&threadData[i]);
         }
         

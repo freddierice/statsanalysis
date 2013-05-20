@@ -29,8 +29,8 @@
 
 /* threading */
 #define THREADS 50000
-#define CONC_THREADS 10
-#define CPU_COUNT 8
+#define CONC_THREADS 1
+#define CPUS 8
 /* data.c */
 typedef struct sample_info_struct {
     double          gen_mean;   //sample generated from this mean
@@ -99,7 +99,7 @@ printf("\n");
 /* test.c */
 void test( test_results *results, sample_info *samples, thread_data *data );
 void *doTestThread(void *info);
-int stick_this_thread_to_core(int core_id);
+void stick_this_thread_to_core(int core_id);
 
 /* boolean type */
 #ifndef __cplusplus
