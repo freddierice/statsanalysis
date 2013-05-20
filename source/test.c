@@ -17,6 +17,8 @@ void *doTestThread(void *info)
     sample_info *samples    = (sample_info *)malloc(sizeof(sample_info)*data->reps);
     test_results *results   = (test_results *)malloc(sizeof(test_results));
     
+    stick_this_thread_to_core(data->ID);
+    
     //create the samples
     createRandomSamples(samples, data);
     
@@ -34,6 +36,19 @@ void *doTestThread(void *info)
     pthread_exit(NULL);
     
     return NULL;
+}
+
+int stick_this_thread_to_core(int core_id) {
+    int num_cores = sysconf(_SC_NPROCESSORS_ONLN);
+    if (core_id >= num_cores)
+        return;
+    
+    cpu_set_t cpuset;
+    CPU_ZERO(&cpuset);
+    CPU_SET(core_id, &cpuset);
+    
+    pthread_t current_thread = pthread_self();    
+    return pthread_setaffinity_np(current_thread, sizeof(cpu_set_t), &cpuset);
 }
 
 void test( test_results *results, sample_info *samples, thread_data *data )
