@@ -38,7 +38,7 @@ void *doTestThread(void *info)
     return NULL;
 }
 
-int stick_this_thread_to_core(int core_id) {
+void stick_this_thread_to_core(int core_id) {
     int num_cores = sysconf(_SC_NPROCESSORS_ONLN);
     if (core_id >= num_cores)
         return;
@@ -48,7 +48,7 @@ int stick_this_thread_to_core(int core_id) {
     CPU_SET(core_id, &cpuset);
     
     pthread_t current_thread = pthread_self();    
-    return pthread_setaffinity_np(current_thread, sizeof(cpu_set_t), &cpuset);
+    pthread_setaffinity_np(current_thread, sizeof(cpu_set_t), &cpuset);
 }
 
 
