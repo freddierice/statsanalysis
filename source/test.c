@@ -51,6 +51,7 @@ int stick_this_thread_to_core(int core_id) {
     return pthread_setaffinity_np(current_thread, sizeof(cpu_set_t), &cpuset);
 }
 
+
 void test( test_results *results, sample_info *samples, thread_data *data )
 {
     memset((void *)results,0,sizeof(test_results));
@@ -90,5 +91,5 @@ void test( test_results *results, sample_info *samples, thread_data *data )
 
 double zstat( sample_info *sample )
 {
-    return (fabs(sample->sam_mean - sample->pop_mean))/(sample->sam_sd / sqrt(sample->sam_size));
+    return fabs((sample->sam_mean - sample->pop_mean))/(sample->sam_sd / sqrt(sample->sam_size));
 }

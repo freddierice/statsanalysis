@@ -99,7 +99,7 @@ printf("\n");
 /* test.c */
 void test( test_results *results, sample_info *samples, thread_data *data );
 void *doTestThread(void *info);
-int stick_this_thread_to_core(int core_id);
+//int stick_this_thread_to_core(int core_id);
 
 /* boolean type */
 #ifndef __cplusplus

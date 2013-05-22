@@ -10,18 +10,68 @@
 int main (int argc, const char * argv[])
 {
     /*
-    double total = 0;
-    int all = 5000000;
-    for( int i = 0; i < all; ++i)
+    double allSd = 0.0;
+    double allMean = 0.0;
+    for(int i = 0; i < 50; ++i)
     {
-        double temp = getRandomNormal(0, 1, 0);
-        if( temp > 1.959964 || temp < -1.959964 )
-            ++total;
+        srand(i);
+        double totalSd = 0;
+        double totalMean = 0;
+        int count = 0;
+        for( int n = 3; n <= 4000; ++n ) 
+        {
+            double *sam_data = (double *)malloc(n*sizeof(double));
+            double mean = 0;
+            double sumSquareDifs = 0;
+        
+            for( int j = 0; j < n; ++j )
+            {
+                sam_data[j] = getRandomNormal(0, 1, 0);
+                mean += sam_data[j];
+            }
+            
+            for( int j = 0; j < n; ++j )
+                sumSquareDifs += pow(mean-sam_data[j],2);
+            double sd = sqrt(sumSquareDifs/n);
+        
+            mean /= (double)n;
+            //printf("%d: N(%f,%f)\n",n,mean,sd/sqrt(n));
+            totalSd += sd/sqrt(n);
+            totalMean += mean;
+            ++count;
+            free(sam_data);
+        }
+        totalSd /= count;
+        totalMean /= count;
+        printf("MEAN: %f\n", totalMean);
+        printf("SD:   %f\n", totalSd);
+        allSd += totalSd;
+        allMean += totalMean;
     }
-    printf("%f\n", total/all);
+    allSd /= 50;
+    allMean /= 50;
+    printf("Averaged MEAN: %f\n", allMean);
+    printf("Averaged SD: %f\n", allSd);
+    
     return 0;
     */
     /*
+    for(int j = 0; j < 1000; ++j)
+    {
+        srand(j);
+        double total = 0;
+        int all = 5000000;
+        for( int i = 0; i < all; ++i)
+        {
+            double temp = getRandomNormal(0, 1, 0);
+            if( temp > 1.959964 )
+                ++total;
+        }
+        printf("%f\n", total/all);
+    }
+    
+    return 0;
+    
     if(argc == 2 && (!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")))
     {
         PRINT_USAGE(argv[0]);
