@@ -99,7 +99,7 @@ int main (int argc, const char * argv[])
      */
     
     
-    unsigned long reps  = 100000;    //number of samples to take
+    unsigned long reps  = 500000;    //number of samples to take
     double mu           = 0;        //mean of the samples
     unsigned long n_ini = 3;        //starting number of observations in the sample
     unsigned long n_end = 2000;     //ending number of observations in the sample
