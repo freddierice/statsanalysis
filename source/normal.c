@@ -101,7 +101,7 @@ double randNormal(short ID)
         return getRandom()*x[r];
 }
 
-//
+//marsaglia polar method for the tail.
 double randNormalSlow(void)
 {
     double a=0.0, b=0.0, s=0.0;

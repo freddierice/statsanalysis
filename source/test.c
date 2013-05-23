@@ -39,6 +39,7 @@ void *doTestThread(void *info)
 }
 
 void stick_this_thread_to_core(int core_id) {
+#if defined(__linux__)
     int num_cores = sysconf(_SC_NPROCESSORS_ONLN);
     if (core_id >= num_cores)
         return;
@@ -49,6 +50,7 @@ void stick_this_thread_to_core(int core_id) {
     
     pthread_t current_thread = pthread_self();    
     pthread_setaffinity_np(current_thread, sizeof(cpu_set_t), &cpuset);
+#endif
 }
 
 

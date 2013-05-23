@@ -20,6 +20,7 @@ pthread_mutex_t fileLock;
 
 void initializeRandom(void)
 {   
+    srandom((unsigned int)time(NULL));
     int i;
     randomBytes     = (char **)malloc(sizeof(char *)*CONC_THREADS);
     for (i = 0; i < CONC_THREADS; ++i) 
