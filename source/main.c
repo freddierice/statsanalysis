@@ -9,7 +9,25 @@
 
 int main (int argc, const char * argv[])
 {
+    initializeNormal();
+
+    
+    
     /*
+     
+     
+     srandom((int)time(NULL));
+     
+     
+     FILE *fout;
+     fout = fopen("randnormBig.csv", "a+");
+     fprintf(fout, "uni\n");
+     for( int i = 0; i < 100000000; ++i )
+     getRandomNormal(0, 1, 0);
+     
+     printf("done!\n");
+     
+     
     double allSd = 0.0;
     double allMean = 0.0;
     for(int i = 0; i < 50; ++i)
